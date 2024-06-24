@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from .forms import PersonaForm
+from .models import Persona
 
 def crear_persona(request):
     if request.method == 'POST':
@@ -13,3 +14,7 @@ def crear_persona(request):
         form = PersonaForm()
     
     return render(request, 'crear_persona.html', {'form': form})
+
+def lista_personas(request):
+    personas = Persona.objects.all()
+    return render(request, 'lista_personas.html', {'personas': personas})
