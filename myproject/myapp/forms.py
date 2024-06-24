@@ -1,11 +1,12 @@
 from django import forms
+from django.core.exceptions import ValidationError
 from django.core.validators import MinValueValidator
 
 class PersonaForm(forms.Form):
     nombre = forms.CharField(
         required=True,
         label="Nombre",
-        initial="",
+        initial="Juan",
         help_text="",
         error_messages={'required': 'El nombre es obligatorio.'},
         validators=[MinValueValidator(1)],
@@ -29,3 +30,15 @@ class PersonaForm(forms.Form):
         label="Donador",
         help_text=""
     )
+
+    def clean_nombre(self):
+        nombre = self.cleaned_data['nombre']
+        if nombre and nombre[0] != nombre[0].upper():
+            raise ValidationError('La primera letra del nombre debe estar en mayúscula.')
+        return nombre
+
+    def clean_apellido(self):
+        apellido = self.cleaned_data['apellido']
+        if apellido and apellido[0] != apellido[0].upper():
+            raise ValidationError('La primera letra del apellido debe estar en mayúscula.')
+        return apellido
