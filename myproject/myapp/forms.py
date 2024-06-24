@@ -5,8 +5,8 @@ class PersonaForm(forms.Form):
     nombre = forms.CharField(
         required=True,
         label="Nombre",
-        initial="Juan",
-        help_text="Ingrese su nombre completo",
+        initial="",
+        help_text="",
         error_messages={'required': 'El nombre es obligatorio.'},
         validators=[MinValueValidator(1)],
         widget=forms.TextInput(attrs={'placeholder': 'Nombre'})
@@ -15,17 +15,17 @@ class PersonaForm(forms.Form):
         required=True,
         label="Apellido",
         initial="Pérez",
-        help_text="Ingrese su apellido",
+        help_text="",
         error_messages={'required': 'El apellido es obligatorio.'}
     )
     edad = forms.IntegerField(
         required=False,
         label="Edad",
-        help_text="Ingrese su edad (opcional)",
+        help_text="",
         validators=[MinValueValidator(0)]
     )
     donador = forms.BooleanField(
         required=False,
         label="Donador",
-        help_text="Marque si es donador"
+        help_text=""
     )
