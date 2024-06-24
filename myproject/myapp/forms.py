@@ -1,32 +1,11 @@
 from django import forms
 from django.core.exceptions import ValidationError
+from .models import Persona
 
-class PersonaForm(forms.Form):
-    nombre = forms.CharField(
-        required=True,
-        label="Nombre",
-        initial="Juan",
-        help_text="",
-        error_messages={'required': 'El nombre es obligatorio.'},
-        widget=forms.TextInput(attrs={'placeholder': 'Nombre'})
-    )
-    apellido = forms.CharField(
-        required=True,
-        label="Apellido",
-        initial="Pérez",
-        help_text="",
-        error_messages={'required': 'El apellido es obligatorio.'}
-    )
-    edad = forms.IntegerField(
-        required=False,
-        label="Edad",
-        help_text=""
-    )
-    donador = forms.BooleanField(
-        required=False,
-        label="Donador",
-        help_text=""
-    )
+class PersonaForm(forms.ModelForm):
+    class Meta:
+        model = Persona
+        fields = ['nombre', 'apellido', 'edad', 'donador']
 
     def clean_nombre(self):
         nombre = self.cleaned_data['nombre']
