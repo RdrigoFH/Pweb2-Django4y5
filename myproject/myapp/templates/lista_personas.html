@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lista de Personas</title>
+</head>
+<body>
+    <h1>Lista de Personas</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Edad</th>
+                <th>Donador</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for persona in personas %}
+            <tr>
+                <td>{{ persona.nombre }}</td>
+                <td>{{ persona.apellido }}</td>
+                <td>{{ persona.edad }}</td>
+                <td>{{ persona.donador }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
