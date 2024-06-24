@@ -1,11 +1,15 @@
 from django import forms
 from django.core.exceptions import ValidationError
 from .models import Persona
-
 class PersonaForm(forms.ModelForm):
     class Meta:
         model = Persona
         fields = ['nombre', 'apellido', 'edad', 'donador']
+
+    def __init__(self, *args, **kwargs):
+        super(PersonaForm, self).__init__(*args, **kwargs)
+        self.fields['nombre'].initial = 'Cristiano'  
+        self.fields['apellido'].initial = 'Ronaldo'  
 
     def clean_nombre(self):
         nombre = self.cleaned_data['nombre']
