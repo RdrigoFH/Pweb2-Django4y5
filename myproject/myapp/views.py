@@ -4,7 +4,7 @@ from .forms import PersonaForm
 def crear_persona(request):
     if request.method == 'POST':
         form = PersonaForm(request.POST)
-        if form.is_valid():
+        if form.is_valid():     
             return redirect('some_success_url')  
         else:
             print(form.errors)  
