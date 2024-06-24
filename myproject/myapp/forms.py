@@ -1,6 +1,5 @@
 from django import forms
 from django.core.exceptions import ValidationError
-from django.core.validators import MinValueValidator
 
 class PersonaForm(forms.Form):
     nombre = forms.CharField(
@@ -9,7 +8,6 @@ class PersonaForm(forms.Form):
         initial="Juan",
         help_text="",
         error_messages={'required': 'El nombre es obligatorio.'},
-        validators=[MinValueValidator(1)],
         widget=forms.TextInput(attrs={'placeholder': 'Nombre'})
     )
     apellido = forms.CharField(
@@ -22,8 +20,7 @@ class PersonaForm(forms.Form):
     edad = forms.IntegerField(
         required=False,
         label="Edad",
-        help_text="",
-        validators=[MinValueValidator(0)]
+        help_text=""
     )
     donador = forms.BooleanField(
         required=False,
@@ -42,3 +39,12 @@ class PersonaForm(forms.Form):
         if apellido and apellido[0] != apellido[0].upper():
             raise ValidationError('La primera letra del apellido debe estar en mayúscula.')
         return apellido
+
+    def clean_edad(self):
+        edad = self.cleaned_data.get('edad')
+        if edad is not None:
+            if not isinstance(edad, int):
+                raise ValidationError('La edad debe ser un número entero.')
+            if edad < 0:
+                raise ValidationError('La edad no puede ser negativa.')
+        return edad
